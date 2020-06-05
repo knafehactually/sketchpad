@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <meta charset="utf-8">
+   
+        <title>knafehactually's sketchpad</title>
+    </head>
+
+    <body>
+        <div id="toolbar-div">
+            <h1 id="nametag">knafehactually's sketchpad</h1>
+            <label id="input-label">grid size:
+                <input id="grid-size-input" placeholder="grid size" type="number" value="100"></label>
+            <button id="clear-button">clear sketchpad</button>
+            <section id="colors-section">
+                <!-- colors go here-->
+            </section>
+        </div>
+
+        <div id="grid-container">
+
+        </div>
+
+        <script>
+
+            let colorsMatrix=[`#000`, `#00f`, `#0f0`, `#0ff`, `#f00`, `#f0f`, `#ff0`,`#fff`, 
+                              `#666`, `#66f`, `#6f6`, `#6ff`, `#f66`, `#f6f`, `#ff6`,`#faf`,
+                              `#bbb`, `#bbf`, `#bfb`, `#bff`, `#fbb`, `#fbf`, `#ffb`,`#ffa`];
+            let activeColor=colorsMatrix[0];
+            createColorMatrix();
+
+            let inputField=document.querySelector('input#grid-size-input');
+            let gridSize=document.querySelector('input#grid-size-input').value;
+            createGrid(gridSize);
+
+            addListeners();
+            ChangeColor();
+            changeBorder();
+
+
+            inputField.addEventListener('change', updateGrid);
+
+            document.querySelector('#clear-button').addEventListener('click', clearPad);
+
+            function updateGrid(){
+                deleteGrid();
+                gridSize=document.querySelector('input#grid-size-input').value;
+                createGrid(gridSize);
+                addListeners();
+            };
+
+            function addListeners(){
+                let allGridItems=document.querySelectorAll('div.grid-item');
+                for(let i=0; i<allGridItems.length; i++){
+                    allGridItems[i].addEventListener("mouseover", function() {
+                    allGridItems[i].setAttribute("style", `background-color: ${activeColor};`);
+                    });
+                };
+             };
+
+             function clearPad(){
+                let allGridItems=document.querySelectorAll('div.grid-item');
+                for(let i=0; i<allGridItems.length; i++){
+                    allGridItems[i].setAttribute("style", `background-color: #fff;`);
+                };
+             };
+            
+
+            function deleteGrid(){
+                let container=document.querySelector("div#grid-container")
+                for(let i=1; i<=(gridSize**2); i++){
+                    child=document.querySelector(`div#grid-item-${i}`);
+                    container.removeChild(child)
+                };
+            };
+
+            function createGrid(gridSize){
+                let container=document.querySelector("div#grid-container")
+                for(let i=1; i<=(gridSize**2); i++){
+                let division=document.createElement(`div`);
+                division.setAttribute("id", `grid-item-${i}`);
+                division.setAttribute("class", `grid-item`);
+                container.appendChild(division);
+                container.setAttribute("style",`grid-template-columns: repeat(${gridSize},auto); grid-template-rows:  repeat(${gridSize},auto);`)
+                };
+            };
+
+            function createColorMatrix(){
+                let container=document.querySelector("section#colors-section");
+                for(let i=0; i<=23; i++){
+                    let division=document.createElement(`div`);
+                    division.setAttribute("id", `color-${i}`);
+                    division.setAttribute("class", `color-item`);
+                    division.setAttribute("style",`background-color: ${colorsMatrix[i]};`);
+                    container.appendChild(division);
+
+                };
+            };
+
+            function ChangeColor(){
+                let allColorItems=document.querySelectorAll('div.color-item');
+                for(let i=0; i<allColorItems.length; i++){
+                    allColorItems[i].addEventListener("click", function() {
+                    activeColor=colorsMatrix[i];
+                    changeBorder();
+                    });
+                };
+             };
+
+             function changeBorder(){
+                let allColorItems=document.querySelectorAll('div.color-item');
+                for(let i=0; i<allColorItems.length; i++){
+                if(allColorItems[i].getAttribute("style")=== `background-color: ${activeColor};`){
+                    allColorItems[i].classList.add("selected");
+                    } else{
+                    allColorItems[i].classList.remove("selected");
+                    };
+                };
+            };
+
+
+
+
+
+        </script>
+     <link href="styles.css" rel="stylesheet">
+    </body>
+
+</html>

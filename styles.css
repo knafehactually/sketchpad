@@ -1,0 +1,82 @@
+div{
+    margin:0 0 0 0;
+
+}
+
+#toolbar-div{
+    background-color: grey;
+    height:100vh;
+    width:20vw;
+    position:absolute;
+    top:0;
+    right:0;
+
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+
+}
+
+#grid-container{
+    background-color: white;
+    height:100vh;
+    width:80vw;
+    position:absolute;
+    top:0;
+    right:20vw;
+
+    display:grid;
+}
+
+h1{
+    text-align:center;
+    font-size: 2vw;
+}
+
+label{
+    justify-self: center;
+    font-size:1vw;}
+
+input{
+    color:black;
+    font-size:1vw;
+    border: 4px solid black;
+    font-weight: 600;
+    width:8vw;
+}
+
+button{
+    color:black;
+    font-size:1vw;
+    padding: 0.25vw 1.5vw;
+    margin: 1vh;
+    border: 4px solid black;
+    font-weight: 600;
+}
+
+
+#colors-section{
+    width:16vw;
+    display:grid;
+    justify-content: center;;
+    grid-template-columns: repeat(3, 4vw);
+    grid-template-rows: repeat(8, 4vw);
+  
+
+}
+
+.color-item{
+    border: 1px solid black;
+}
+
+.color-item:hover{
+    opacity:0.6;
+}
+
+.color-item.selected{
+    border: 4px solid black;
+}
+
+.grid-item.colored{
+    background-color: black;
+}
